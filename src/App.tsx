@@ -1,10 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useReactiveVar } from "@apollo/client";
+import { ApolloProvider, useReactiveVar } from "@apollo/client";
 import { ThemeProvider } from "styled-components";
-import { isLoggedInVar, isDarkModeVar } from "apollo";
+import { isLoggedInVar, isDarkModeVar, client } from "apollo";
+import { HelmetProvider } from "react-helmet-async";
 import { lightTheme, darkTheme, GlobalStyles } from "styles";
+import { ROUTES } from "constant";
+
 import Home from "screens/Home";
-import Login from "screens/Login";
+import SignIn from "screens/auth/signIn";
+import SignUp from "screens/auth/signUp";
 import NotFound from "screens/NotFound";
 
 function App() {
@@ -12,18 +16,26 @@ function App() {
     const isDarkMode = useReactiveVar(isDarkModeVar);
 
     return (
-        <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-            <GlobalStyles />
-            <Router>
-                <Routes>
-                    <Route
-                        path="/"
-                        element={isLoggedIn ? <Home /> : <Login />}
-                    />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </Router>
-        </ThemeProvider>
+        <ApolloProvider client={client}>
+            <HelmetProvider>
+                <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+                    <GlobalStyles />
+                    <Router>
+                        <Routes>
+                            <Route
+                                path={ROUTES.HOME}
+                                element={isLoggedIn ? <Home /> : <SignIn />}
+                            />
+                            <Route
+                                path={ROUTES.SIGN_UP}
+                                element={isLoggedIn ? <NotFound /> : <SignUp />}
+                            />
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                    </Router>
+                </ThemeProvider>
+            </HelmetProvider>
+        </ApolloProvider>
     );
 }
 export default App;

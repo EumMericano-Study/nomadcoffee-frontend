@@ -1,12 +1,14 @@
-import { isLoggedInVar } from "apollo";
-
+import { signOutUser } from "apollo";
 import { Container } from "components/elements";
+import PageTitle from "components/pageTitle";
 
 function Home() {
     return (
         <Container>
+            <PageTitle title="Home" />
+
             <h1>Home</h1>
-            <button onClick={() => isLoggedInVar(false)}>Logout Now!</button>
+            <button onClick={signOutUser}>Logout Now!</button>
         </Container>
     );
 }
