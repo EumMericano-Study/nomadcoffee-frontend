@@ -1,8 +1,7 @@
-import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { gql, useMutation } from "@apollo/client";
-import { signInUser } from "apollo";
+import { AuthCont } from "apollo";
 
 import { ERROR, ROUTES } from "constant";
 import PageTitle from "components/pageTitle";
@@ -22,21 +21,15 @@ export const SIGN_IN_MUTATION = gql`
 function SignIn() {
     const location = useLocation() as any;
 
-    const {
-        register,
-        handleSubmit,
-        formState,
-        getValues,
-        setError,
-        clearErrors,
-    } = useForm({
-        mode: "onChange",
-        defaultValues: {
-            username: location?.state?.username || "",
-            password: location?.state?.password || "",
-            result: "",
-        },
-    });
+    const { register, handleSubmit, formState, setError, clearErrors } =
+        useForm({
+            mode: "onChange",
+            defaultValues: {
+                username: location?.state?.username || "",
+                password: location?.state?.password || "",
+                result: "",
+            },
+        });
 
     const onCompleted = (data: any) => {
         const {
@@ -44,7 +37,7 @@ function SignIn() {
         } = data;
         if (!ok) return setError("result", { message: error });
         if (token) {
-            signInUser(token);
+            AuthCont.signInUser(token);
         }
     };
     const [login, { loading }] = useMutation(SIGN_IN_MUTATION, { onCompleted });

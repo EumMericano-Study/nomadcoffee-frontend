@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ApolloProvider, useReactiveVar } from "@apollo/client";
 import { ThemeProvider } from "styled-components";
-import { isLoggedInVar, isDarkModeVar, client } from "apollo";
+import { AuthCont, ThemeCont, ScreenTypeCont, client } from "apollo";
 import { HelmetProvider } from "react-helmet-async";
 import { lightTheme, darkTheme, GlobalStyles } from "styles";
 import { ROUTES } from "constant";
@@ -12,8 +12,8 @@ import SignUp from "screens/auth/signUp";
 import NotFound from "screens/NotFound";
 
 function App() {
-    const isLoggedIn = useReactiveVar(isLoggedInVar);
-    const isDarkMode = useReactiveVar(isDarkModeVar);
+    const isLoggedIn = useReactiveVar(AuthCont.isLoggedInVar);
+    const isDarkMode = useReactiveVar(ThemeCont.isDarkModeVar);
 
     return (
         <ApolloProvider client={client}>
