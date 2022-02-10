@@ -1,11 +1,11 @@
 import { makeVar } from "@apollo/client";
 
 const initialState = {
-    isMobile: true,
-    isTablet: false,
-    isPC: false,
+  isMobile: true,
+  isTablet: false,
+  isPC: false,
 };
 
-const screenType = makeVar<ScreenType>(initialState);
+export const screenTypeVar = makeVar<ScreenType>(initialState);
 
-export default screenType;
+export const setScreenType = (payload: ScreenType) => screenTypeVar(payload);
