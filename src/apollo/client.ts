@@ -6,7 +6,7 @@ import { onError } from "@apollo/client/link/error";
 const httpLink = createUploadLink({
   uri:
     process.env.NODE_ENV === "production"
-      ? "https://dashboard.heroku.com/apps/nomad-sexy-coffee/graphql"
+      ? "https://nomad-sexy-coffee.herokuapp.com/graphql"
       : "http://localhost:4000/graphql",
 });
 
