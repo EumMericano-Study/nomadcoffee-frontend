@@ -45,3 +45,12 @@ export const CREATE_COFFEE_SHOP = gql`
     }
   }
 `;
+
+export const DELETE_COFFEE_SHOP = gql`
+  mutation ($id: Int!) {
+    deleteCoffeeShop(id: $id) {
+      ok
+      error
+    }
+  }
+`;
