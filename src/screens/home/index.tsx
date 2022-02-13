@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { AuthCont } from "apollo";
 import { GET_COFFEE_SHOPS } from "apollo/gql/shop.gql";
@@ -10,6 +10,7 @@ import PinteresetLayout from "components/pinterest/layout";
 import { CoffeeShop } from "types/coffeeShop";
 
 import { Border } from "./styles";
+import { ROUTES } from "constant";
 
 function Home() {
   const navigate = useNavigate();
@@ -33,7 +34,11 @@ function Home() {
       <PinteresetLayout />
       <Border>
         {coffeeShops.map((shop, index) => {
-          return <div key={index}>{shop.name}</div>;
+          return (
+            <div key={index}>
+              <Link to={`${ROUTES.DETAIL}/${shop.id}`}>{shop.name}</Link>
+            </div>
+          );
         })}
       </Border>
       <button

@@ -50,7 +50,7 @@ function App() {
                 path={ROUTES.CREATE}
                 element={isLoggedIn ? <CreateShop /> : <NotFound />}
               />
-              <Route path={ROUTES.DETAIL} element={<ShopDetail />} />
+              <Route path={`${ROUTES.DETAIL}/:id`} element={<ShopDetail />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>

@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 
@@ -6,6 +7,7 @@ import { CREATE_COFFEE_SHOP } from "apollo/gql/shop.gql";
 import { Container, Input } from "components/elements";
 
 function CreateShop() {
+  const navigate = useNavigate();
   const { register, handleSubmit, formState, setError, clearErrors } = useForm({
     mode: "onChange",
   });
@@ -30,7 +32,9 @@ function CreateShop() {
 
     const images = [data.image1[0], data.image2[0], data.image3[0]];
     console.log(images, categories);
-    createCoffeeShop({ variables: { ...data, categories, images } });
+    await createCoffeeShop({ variables: { ...data, categories, images } });
+    alert("글이 생성되었습니다.");
+    navigate("/");
   };
 
   const clearError = () => clearError;

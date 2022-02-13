@@ -3,7 +3,11 @@ import { gql } from "@apollo/client";
 export const GET_COFFEE_SHOPS = gql`
   query getCoffeeShopList($lastId: Int) {
     seeCoffeeShops(lastId: $lastId) {
+      id
       name
+      photos {
+        url
+      }
     }
   }
 `;
@@ -11,6 +15,11 @@ export const GET_COFFEE_SHOP = gql`
   query getCoffeeShopList($id: Int!) {
     seeCoffeeShop(id: $id) {
       name
+      latitude
+      longitude
+      photos {
+        url
+      }
     }
   }
 `;
