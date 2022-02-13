@@ -21,6 +21,7 @@ function Detail() {
 
   useQuery(GET_COFFEE_SHOP, { onCompleted, variables: { id } });
 
+  const handleDelete = () => {};
   return (
     <div>
       {name}
