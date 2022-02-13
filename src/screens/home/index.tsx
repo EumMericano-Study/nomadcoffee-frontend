@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { AuthCont } from "apollo";
@@ -19,7 +19,10 @@ function Home() {
     setCoffeeShops(data.seeCoffeeShops);
   };
 
-  useQuery(GET_COFFEE_SHOPS, { onCompleted });
+  useEffect(() => {
+    console.log("here");
+    useQuery(GET_COFFEE_SHOPS, { onCompleted });
+  }, []);
 
   return (
     <Container>
