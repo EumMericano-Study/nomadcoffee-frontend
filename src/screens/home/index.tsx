@@ -18,10 +18,11 @@ function Home() {
   const onCompleted = (data: any) => {
     setCoffeeShops(data.seeCoffeeShops);
   };
-
-  useEffect(() => {
-    console.log("here");
+  const loadShops = () => {
     useQuery(GET_COFFEE_SHOPS, { onCompleted });
+  };
+  useEffect(() => {
+    loadShops();
   }, []);
 
   return (
