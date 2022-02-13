@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useMutation, useQuery } from "@apollo/client";
 
-import { GET_COFFEE_SHOP } from "apollo/gql/shop.gql";
+import { DELETE_COFFEE_SHOP, GET_COFFEE_SHOP } from "apollo/gql/shop.gql";
 
 interface Photos {
   url: string;
@@ -10,6 +10,7 @@ interface Photos {
 
 function Detail() {
   const location = useLocation();
+  const navigate = useNavigate();
   const id = Number(location.pathname.split("/")[2]);
   const [name, setName] = useState<string>("");
   const [images, setImages] = useState<Photos[]>([]);
@@ -20,8 +21,12 @@ function Detail() {
   };
 
   useQuery(GET_COFFEE_SHOP, { onCompleted, variables: { id } });
+  const [deleteCoffeeShop, { loading }] = useMutation(DELETE_COFFEE_SHOP);
 
-  const handleDelete = () => {};
+  const handleDelete = async () => {
+    await deleteCoffeeShop({ variables: { id } });
+    navigate("/");
+  };
   return (
     <div>
       {name}
@@ -29,7 +34,7 @@ function Detail() {
       <img src={images[1]?.url} alt="" width="400px" height="500px" />
       <img src={images[2]?.url} alt="" width="300px" height="500px" />
       <button>edit Shop Info</button>
-      <button>delete Shop</button>
+      <button onClick={handleDelete}>delete Shop</button>
     </div>
   );
 }
