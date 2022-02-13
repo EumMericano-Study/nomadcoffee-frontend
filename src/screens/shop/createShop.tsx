@@ -26,17 +26,11 @@ function CreateShop() {
     [x: string]: string | FileUpload[];
   }) => {
     if (loading) return;
-    const categories = [];
-    if (data.category1 !== "") categories.push(data.cahegory1);
-    if (data.category2 !== "") categories.push(data.cahegory2);
-    if (data.category3 !== "") categories.push(data.cahegory3);
+    const categories = [data.category1, data.category2, data.category3];
 
-    /**
-     * Fail to Upload image ,,,, 😥
-     */
-    // const images = [data.image1[0], data.image2[0], data.image3[0]];
-
-    createCoffeeShop({ variables: { ...data, categories } });
+    const images = [data.image1[0], data.image2[0], data.image3[0]];
+    console.log(images, categories);
+    createCoffeeShop({ variables: { ...data, categories, images } });
   };
 
   const clearError = () => clearError;
